@@ -174,25 +174,24 @@ public class ServiceStartArguments extends Service {
      * Show a notification while this service is running.
      */
     private void showNotification(String text) {
+        // Set the icon, scrolling text and timestamp
+        Notification notification = new Notification(R.drawable.stat_sample, text,
+                System.currentTimeMillis());
+
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, Controller.class), 0);
 
         // Set the info for the views that show in the notification panel.
-        Notification.Builder noteBuilder = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.stat_sample)  // the status icon
-                .setTicker(text)  // the status text
-                .setWhen(System.currentTimeMillis())  // the time stamp
-                .setContentTitle(getText(R.string.service_start_arguments_label))  // the label
-                .setContentText(text)  // the contents of the entry
-                .setContentIntent(contentIntent);  // The intent to send when the entry is clicked
+//        notification.setLatestEventInfo(this, getText(R.string.service_start_arguments_label),
+//                       text, contentIntent);
 
         // We show this for as long as our service is processing a command.
-        noteBuilder.setOngoing(true);
+        notification.flags |= Notification.FLAG_ONGOING_EVENT;
         
         // Send the notification.
         // We use a string id because it is a unique number.  We use it later to cancel.
-        mNM.notify(R.string.service_created, noteBuilder.build());
+        mNM.notify(R.string.service_created, notification);
     }
     
     private void hideNotification() {

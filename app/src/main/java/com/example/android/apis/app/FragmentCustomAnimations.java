@@ -65,7 +65,7 @@ public class FragmentCustomAnimations extends Activity {
         outState.putInt("level", mStackLevel);
     }
 
-//BEGIN_INCLUDE(add_stack)
+
     void addFragmentToStack() {
         mStackLevel++;
 
@@ -83,9 +83,9 @@ public class FragmentCustomAnimations extends Activity {
         ft.addToBackStack(null);
         ft.commit();
     }
-//END_INCLUDE(add_stack)
 
-//BEGIN_INCLUDE(fragment)
+
+
     public static class CountingFragment extends Fragment {
         int mNum;
 
@@ -127,5 +127,5 @@ public class FragmentCustomAnimations extends Activity {
             return v;
         }
     }
-//END_INCLUDE(fragment)
+
 }

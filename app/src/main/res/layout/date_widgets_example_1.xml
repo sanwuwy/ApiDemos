@@ -32,14 +32,9 @@
             android:layout_height="wrap_content"
             android:text="@string/date_widgets_example_pickDate_text"/>
 
-    <Button android:id="@+id/pickTime12"
+    <Button android:id="@+id/pickTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/date_widgets_example_pickTime12_text"/>
-
-    <Button android:id="@+id/pickTime24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/date_widgets_example_pickTime24_text"/>
+            android:text="@string/date_widgets_example_pickTime_text"/>
 
 </LinearLayout>

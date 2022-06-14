@@ -38,7 +38,7 @@ import com.example.android.apis.R;
  * has finished, the temporary data is replace with the actual data.
  *
  */
-public class List13 extends ListActivity implements OnScrollListener {
+public class List13 extends ListActivity implements ListView.OnScrollListener {
 
     private TextView mStatus;
     
@@ -89,8 +89,8 @@ public class List13 extends ListActivity implements OnScrollListener {
         /**
          * Make a view to hold each row.
          * 
-         * @see android.widget.ListAdapter#getView(int, View,
-         *      ViewGroup)
+         * @see android.widget.ListAdapter#getView(int, android.view.View,
+         *      android.view.ViewGroup)
          */
         public View getView(int position, View convertView, ViewGroup parent) {
             TextView text;

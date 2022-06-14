@@ -60,7 +60,6 @@ public class Sweep extends GraphicsActivity {
 
             mMatrix.setRotate(mRotate, x, y);
             mShader.setLocalMatrix(mMatrix);
-            mPaint.setShader(mShader);
             mRotate += 3;
             if (mRotate >= 360) {
                 mRotate = 0;

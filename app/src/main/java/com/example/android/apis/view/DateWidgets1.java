@@ -33,7 +33,7 @@ import java.util.Calendar;
 
 /**
  * Basic example of using date and time widgets, including
- * {@link TimePickerDialog} and {@link DatePicker}.
+ * {@link android.app.TimePickerDialog} and {@link android.widget.DatePicker}.
  *
  * Also provides a good example of using {@link Activity#onCreateDialog},
  * {@link Activity#onPrepareDialog} and {@link Activity#showDialog} to have the
@@ -51,9 +51,8 @@ public class DateWidgets1 extends Activity {
     private int mHour;
     private int mMinute;
 
-    static final int TIME_12_DIALOG_ID = 0;
-    static final int TIME_24_DIALOG_ID = 1;
-    static final int DATE_DIALOG_ID = 2;
+    static final int TIME_DIALOG_ID = 0;
+    static final int DATE_DIALOG_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +62,21 @@ public class DateWidgets1 extends Activity {
 
         mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
 
-        setDialogOnClickListener(R.id.pickDate, DATE_DIALOG_ID);
-        setDialogOnClickListener(R.id.pickTime12, TIME_12_DIALOG_ID);
-        setDialogOnClickListener(R.id.pickTime24, TIME_24_DIALOG_ID);
+        Button pickDate = (Button) findViewById(R.id.pickDate);
+        pickDate.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
+
+        Button pickTime = (Button) findViewById(R.id.pickTime);
+        pickTime.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                showDialog(TIME_DIALOG_ID);
+            }
+        });
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -77,22 +88,12 @@ public class DateWidgets1 extends Activity {
         updateDisplay();
     }
 
-    private void setDialogOnClickListener(int buttonId, final int dialogId) {
-        Button b = (Button) findViewById(buttonId);
-        b.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(dialogId);
-            }
-        });
-    }
-
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
-            case TIME_12_DIALOG_ID:
-            case TIME_24_DIALOG_ID:
+            case TIME_DIALOG_ID:
                 return new TimePickerDialog(this,
-                        mTimeSetListener, mHour, mMinute, id == TIME_24_DIALOG_ID);
+                        mTimeSetListener, mHour, mMinute, false);
             case DATE_DIALOG_ID:
                 return new DatePickerDialog(this,
                             mDateSetListener,
@@ -104,8 +105,7 @@ public class DateWidgets1 extends Activity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog) {
         switch (id) {
-            case TIME_12_DIALOG_ID:
-            case TIME_24_DIALOG_ID:
+            case TIME_DIALOG_ID:
                 ((TimePickerDialog) dialog).updateTime(mHour, mMinute);
                 break;
             case DATE_DIALOG_ID:

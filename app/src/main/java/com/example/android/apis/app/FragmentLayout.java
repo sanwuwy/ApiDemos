@@ -42,20 +42,20 @@ import android.widget.TextView;
  */
 public class FragmentLayout extends Activity {
 
-//BEGIN_INCLUDE(main)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.fragment_layout);
     }
-//END_INCLUDE(main)
+
 
     /**
      * This is a secondary activity, to show what the user has selected
      * when the screen is not large enough to show it all in one activity.
      */
-//BEGIN_INCLUDE(details_activity)
+
     public static class DetailsActivity extends Activity {
 
         @Override
@@ -78,14 +78,14 @@ public class FragmentLayout extends Activity {
             }
         }
     }
-//END_INCLUDE(details_activity)
+
 
     /**
      * This is the "top-level" fragment, showing a list of items that the
      * user can pick.  Upon picking an item, it takes care of displaying the
      * data to the user as appropriate based on the currrent UI layout.
      */
-//BEGIN_INCLUDE(titles)
+
     public static class TitlesFragment extends ListFragment {
         boolean mDualPane;
         int mCurCheckPosition = 0;
@@ -169,13 +169,13 @@ public class FragmentLayout extends Activity {
             }
         }
     }
-//END_INCLUDE(titles)
+
 
     /**
      * This is the secondary fragment, displaying the details of a particular
      * item.
      */
-//BEGIN_INCLUDE(details)
+
     public static class DetailsFragment extends Fragment {
         /**
          * Create a new instance of DetailsFragment, initialized to
@@ -220,5 +220,5 @@ public class FragmentLayout extends Activity {
             return scroller;
         }
     }
-//END_INCLUDE(details)
+
 }

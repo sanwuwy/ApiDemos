@@ -63,8 +63,6 @@ App/Service/Alarm Controller
 </table>
 
  */
-// Start with:
-// adb shell am start com.example.android.apis/.app.AlarmController
 public class AlarmController extends Activity {
     Toast mToast;
 
@@ -76,8 +74,6 @@ public class AlarmController extends Activity {
 
         // Watch for button clicks.
         Button button = (Button)findViewById(R.id.one_shot);
-        button.setOnClickListener(mOneShotListener);
-        button = (Button)findViewById(R.id.one_shot_while_idle);
         button.setOnClickListener(mOneShotListener);
         button = (Button)findViewById(R.id.start_repeating);
         button.setOnClickListener(mStartRepeatingListener);
@@ -103,16 +99,7 @@ public class AlarmController extends Activity {
 
             // Schedule the alarm!
             AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-
-            switch (v.getId()) {
-                case R.id.one_shot:
-                    am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
-                    break;
-                default:
-                    am.setExactAndAllowWhileIdle(
-                            AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
-                    break;
-            }
+            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
 
             // Tell the user about what we did.
             if (mToast != null) {

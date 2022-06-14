@@ -32,7 +32,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Process;
 import android.os.RemoteCallbackList;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -81,12 +80,6 @@ public class RemoteService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("RemoteService", "Received start id " + startId + ": " + intent);
-        return START_NOT_STICKY;
-    }
-
-    @Override
     public void onDestroy() {
         // Cancel the persistent notification.
         mNM.cancel(R.string.remote_service_started);
@@ -102,7 +95,7 @@ public class RemoteService extends Service {
         mHandler.removeMessages(REPORT_MSG);
     }
     
-// BEGIN_INCLUDE(exposing_a_service)
+
     @Override
     public IBinder onBind(Intent intent) {
         // Select the interface to return.  If your service only implements
@@ -140,7 +133,7 @@ public class RemoteService extends Service {
                 float aFloat, double aDouble, String aString) {
         }
     };
-// END_INCLUDE(exposing_a_service)
+
     
     @Override
     public void onTaskRemoved(Intent rootIntent) {
@@ -190,19 +183,17 @@ public class RemoteService extends Service {
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = getText(R.string.remote_service_started);
 
+        // Set the icon, scrolling text and timestamp
+        Notification notification = new Notification(R.drawable.stat_sample, text,
+                System.currentTimeMillis());
+
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, Controller.class), 0);
 
         // Set the info for the views that show in the notification panel.
-        Notification notification = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.stat_sample)  // the status icon
-                .setTicker(text)  // the status text
-                .setWhen(System.currentTimeMillis())  // the time stamp
-                .setContentTitle(getText(R.string.remote_service_label))  // the label of the entry
-                .setContentText(text)  // the contents of the entry
-                .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
-                .build();
+//        notification.setLatestEventInfo(this, getText(R.string.remote_service_label),
+//                       text, contentIntent);
 
         // Send the notification.
         // We use a string id because it is a unique number.  We use it later to cancel.
@@ -241,7 +232,8 @@ public class RemoteService extends Service {
                 // We use an action code here, instead of explictly supplying
                 // the component name, so that other packages can replace
                 // the service.
-                startService(new Intent(Controller.this, RemoteService.class));
+                startService(new Intent(
+                        "com.example.android.apis.app.REMOTE_SERVICE"));
             }
         };
 
@@ -250,7 +242,8 @@ public class RemoteService extends Service {
                 // Cancel a previous call to startService().  Note that the
                 // service will not actually stop at this point if there are
                 // still bound clients.
-                stopService(new Intent(Controller.this, RemoteService.class));
+                stopService(new Intent(
+                        "com.example.android.apis.app.REMOTE_SERVICE"));
             }
         };
     }
@@ -265,7 +258,7 @@ public class RemoteService extends Service {
      * <p>Note that this is implemented as an inner class only keep the sample
      * all together; typically this code would appear in some separate class.
      */
- // BEGIN_INCLUDE(calling_a_service)
+
     public static class Binding extends Activity {
         /** The primary interface we will be calling on the service. */
         IRemoteService mService = null;
@@ -368,11 +361,10 @@ public class RemoteService extends Service {
                 // by interface names.  This allows other applications to be
                 // installed that replace the remote service by implementing
                 // the same interface.
-                Intent intent = new Intent(Binding.this, RemoteService.class);
-                intent.setAction(IRemoteService.class.getName());
-                bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-                intent.setAction(ISecondary.class.getName());
-                bindService(intent, mSecondaryConnection, Context.BIND_AUTO_CREATE);
+                bindService(new Intent(IRemoteService.class.getName()),
+                        mConnection, Context.BIND_AUTO_CREATE);
+                bindService(new Intent(ISecondary.class.getName()),
+                        mSecondaryConnection, Context.BIND_AUTO_CREATE);
                 mIsBound = true;
                 mCallbackText.setText("Binding.");
             }
@@ -468,18 +460,17 @@ public class RemoteService extends Service {
             
         };
     }
-// END_INCLUDE(calling_a_service)
+
 
     // ----------------------------------------------------------------------
 
     /**
      * Examples of behavior of different bind flags.</p>
      */
- // BEGIN_INCLUDE(calling_a_service)
+
     public static class BindingOptions extends Activity {
         ServiceConnection mCurConnection;
         TextView mCallbackText;
-        Intent mBindIntent;
 
         class MyServiceConnection implements ServiceConnection {
             final boolean mUnbindOnDisconnect;
@@ -548,9 +539,6 @@ public class RemoteService extends Service {
 
             mCallbackText = (TextView)findViewById(R.id.callback);
             mCallbackText.setText("Not attached.");
-
-            mBindIntent = new Intent(this, RemoteService.class);
-            mBindIntent.setAction(IRemoteService.class.getName());
         }
 
         private OnClickListener mBindNormalListener = new OnClickListener() {
@@ -560,7 +548,8 @@ public class RemoteService extends Service {
                     mCurConnection = null;
                 }
                 ServiceConnection conn = new MyServiceConnection();
-                if (bindService(mBindIntent, conn, Context.BIND_AUTO_CREATE)) {
+                if (bindService(new Intent(IRemoteService.class.getName()),
+                        conn, Context.BIND_AUTO_CREATE)) {
                     mCurConnection = conn;
                 }
             }
@@ -573,8 +562,8 @@ public class RemoteService extends Service {
                     mCurConnection = null;
                 }
                 ServiceConnection conn = new MyServiceConnection();
-                if (bindService(mBindIntent, conn,
-                        Context.BIND_AUTO_CREATE | Context.BIND_NOT_FOREGROUND)) {
+                if (bindService(new Intent(IRemoteService.class.getName()),
+                        conn, Context.BIND_AUTO_CREATE | Context.BIND_NOT_FOREGROUND)) {
                     mCurConnection = conn;
                 }
             }
@@ -587,7 +576,7 @@ public class RemoteService extends Service {
                     mCurConnection = null;
                 }
                 ServiceConnection conn = new MyServiceConnection();
-                if (bindService(mBindIntent,
+                if (bindService(new Intent(IRemoteService.class.getName()),
                         conn, Context.BIND_AUTO_CREATE | Context.BIND_ABOVE_CLIENT)) {
                     mCurConnection = conn;
                 }
@@ -601,8 +590,8 @@ public class RemoteService extends Service {
                     mCurConnection = null;
                 }
                 ServiceConnection conn = new MyServiceConnection();
-                if (bindService(mBindIntent, conn,
-                        Context.BIND_AUTO_CREATE | Context.BIND_ALLOW_OOM_MANAGEMENT)) {
+                if (bindService(new Intent(IRemoteService.class.getName()),
+                        conn, Context.BIND_AUTO_CREATE | Context.BIND_ALLOW_OOM_MANAGEMENT)) {
                     mCurConnection = conn;
                 }
             }
@@ -615,8 +604,8 @@ public class RemoteService extends Service {
                     mCurConnection = null;
                 }
                 ServiceConnection conn = new MyServiceConnection(true);
-                if (bindService(mBindIntent, conn,
-                        Context.BIND_AUTO_CREATE | Context.BIND_WAIVE_PRIORITY)) {
+                if (bindService(new Intent(IRemoteService.class.getName()),
+                        conn, Context.BIND_AUTO_CREATE | Context.BIND_WAIVE_PRIORITY)) {
                     mCurConnection = conn;
                 }
             }
@@ -629,8 +618,8 @@ public class RemoteService extends Service {
                     mCurConnection = null;
                 }
                 ServiceConnection conn = new MyServiceConnection();
-                if (bindService(mBindIntent, conn,
-                        Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT)) {
+                if (bindService(new Intent(IRemoteService.class.getName()),
+                        conn, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT)) {
                     mCurConnection = conn;
                 }
             }
@@ -643,8 +632,8 @@ public class RemoteService extends Service {
                     mCurConnection = null;
                 }
                 ServiceConnection conn = new MyServiceConnection();
-                if (bindService(mBindIntent, conn,
-                        Context.BIND_AUTO_CREATE | Context.BIND_ADJUST_WITH_ACTIVITY
+                if (bindService(new Intent(IRemoteService.class.getName()),
+                        conn, Context.BIND_AUTO_CREATE | Context.BIND_ADJUST_WITH_ACTIVITY
                         | Context.BIND_WAIVE_PRIORITY)) {
                     mCurConnection = conn;
                 }

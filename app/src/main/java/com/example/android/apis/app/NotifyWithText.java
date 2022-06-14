@@ -29,7 +29,7 @@ import android.widget.Toast;
  * using the Toast method.
  * @see Toast
  * @see Toast#makeText(android.content.Context,int,int)
- * @see Toast#makeText(android.content.Context, CharSequence,int)
+ * @see Toast#makeText(android.content.Context,java.lang.CharSequence,int)
  * @see Toast#LENGTH_SHORT
  * @see Toast#LENGTH_LONG
  */

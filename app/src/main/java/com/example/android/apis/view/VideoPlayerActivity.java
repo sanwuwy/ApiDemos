@@ -57,7 +57,7 @@ public class VideoPlayerActivity extends Activity
      * using system UI flags to transition in and out of modes where the entire
      * screen can be filled with content (at the expense of no user interaction).
      */
-//BEGIN_INCLUDE(content)
+
     public static class Content extends ImageView implements
             View.OnSystemUiVisibilityChangeListener, View.OnClickListener,
             ActionBar.OnMenuVisibilityListener {
@@ -167,7 +167,7 @@ public class VideoPlayerActivity extends Activity
                     h.removeCallbacks(mNavHider);
                     if (!mMenusOpen && !mPaused) {
                         // If the menus are open or play is paused, we will not auto-hide.
-                        h.postDelayed(mNavHider, 3000);
+                        h.postDelayed(mNavHider, 1500);
                     }
                 }
             }
@@ -179,7 +179,7 @@ public class VideoPlayerActivity extends Activity
             mSeekView.setVisibility(visible ? VISIBLE : INVISIBLE);
         }
     }
-//END_INCLUDE(content)
+
 
     Content mContent;
 

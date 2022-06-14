@@ -97,7 +97,7 @@ public class ColorPickerDialog extends Dialog {
         private static final int CENTER_RADIUS = 32;
 
         private int floatToByte(float x) {
-            int n = Math.round(x);
+            int n = java.lang.Math.round(x);
             return n;
         }
         private int pinToByte(int n) {
@@ -110,7 +110,7 @@ public class ColorPickerDialog extends Dialog {
         }
 
         private int ave(int s, int d, float p) {
-            return s + Math.round(p * (d - s));
+            return s + java.lang.Math.round(p * (d - s));
         }
 
         private int interpColor(int colors[], float unit) {
@@ -167,7 +167,7 @@ public class ColorPickerDialog extends Dialog {
         public boolean onTouchEvent(MotionEvent event) {
             float x = event.getX() - CENTER_X;
             float y = event.getY() - CENTER_Y;
-            boolean inCenter = Math.hypot(x, y) <= CENTER_RADIUS;
+            boolean inCenter = java.lang.Math.sqrt(x*x + y*y) <= CENTER_RADIUS;
 
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -184,7 +184,7 @@ public class ColorPickerDialog extends Dialog {
                             invalidate();
                         }
                     } else {
-                        float angle = (float) Math.atan2(y, x);
+                        float angle = (float)java.lang.Math.atan2(y, x);
                         // need to turn angle [-PI ... PI] into unit [0....1]
                         float unit = angle/(2*PI);
                         if (unit < 0) {

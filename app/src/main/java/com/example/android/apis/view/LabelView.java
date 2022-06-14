@@ -54,7 +54,7 @@ public class LabelView extends View {
      * layout file. These attributes are defined in
      * SDK/assets/res/any/classes.xml.
      * 
-     * @see View#View(Context, AttributeSet)
+     * @see android.view.View#View(android.content.Context, android.util.AttributeSet)
      */
     public LabelView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -121,7 +121,7 @@ public class LabelView extends View {
     }
 
     /**
-     * @see View#measure(int, int)
+     * @see android.view.View#measure(int, int)
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -184,7 +184,7 @@ public class LabelView extends View {
     /**
      * Render the text
      * 
-     * @see View#onDraw(Canvas)
+     * @see android.view.View#onDraw(android.graphics.Canvas)
      */
     @Override
     protected void onDraw(Canvas canvas) {

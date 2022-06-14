@@ -22,6 +22,7 @@ import android.content.Context;
 import android.graphics.*;
 import android.os.Bundle;
 import android.view.*;
+import android.util.FloatMath;
 
 public class BitmapMesh extends GraphicsActivity {
 

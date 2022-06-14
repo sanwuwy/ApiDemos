@@ -26,7 +26,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * This is an example implementation of the {@link Instrumentation}
+ * This is an example implementation of the {@link android.app.Instrumentation}
  * class, allowing you to run tests against application code.  The
  * instrumentation implementation here is loaded into the application's
  * process, for controlling and monitoring what it does.

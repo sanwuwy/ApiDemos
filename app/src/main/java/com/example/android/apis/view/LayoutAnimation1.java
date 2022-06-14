@@ -39,7 +39,7 @@ public class LayoutAnimation1 extends Activity {
 
         setContentView(R.layout.layout_animation_1);
         GridView grid = (GridView) findViewById(R.id.grid);
-        grid.setAdapter(new AppsAdapter());
+        grid.setAdapter(new LayoutAnimation1.AppsAdapter());
     }
 
     private List<ResolveInfo> mApps;

@@ -16,7 +16,7 @@
 
 package com.example.android.apis.app;
 
-//BEGIN_INCLUDE(complete)
+
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.ListFragment;
@@ -509,4 +509,4 @@ public class LoaderThrottle extends Activity {
         }
     }
 }
-//END_INCLUDE(complete)
+

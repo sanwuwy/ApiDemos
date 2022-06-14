@@ -30,7 +30,7 @@ import com.example.android.apis.R;
 /**
  * <h3>App that vibrates the vibrator with the Morse Code for a string.</h3>
 
-<p>This demonstrates the {@link Vibrator android.os.Vibrator} class.
+<p>This demonstrates the {@link android.os.Vibrator android.os.Vibrator} class.
 
 <h4>Demo</h4>
 OS / Morse Code Vibrator
@@ -54,7 +54,7 @@ public class MorseCode extends Activity
 
     /**
      * Initialization of the Activity after it is first created.  Must at least
-     * call {@link Activity#setContentView setContentView()} to
+     * call {@link android.app.Activity#setContentView setContentView()} to
      * describe what is to be displayed in the screen.
      */
     @Override

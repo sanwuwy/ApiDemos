@@ -96,7 +96,7 @@ public class List6 extends ListActivity
 
         /**
          * Make a SpeechView to hold each row.
-         * @see android.widget.ListAdapter#getView(int, View, ViewGroup)
+         * @see android.widget.ListAdapter#getView(int, android.view.View, android.view.ViewGroup)
          */
         public View getView(int position, View convertView, ViewGroup parent) {
             SpeechView sv;
@@ -374,11 +374,11 @@ public class List6 extends ListActivity
             
             mTitle = new TextView(context);
             mTitle.setText(title);
-            addView(mTitle, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+            addView(mTitle, new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
             
             mDialogue = new TextView(context);
             mDialogue.setText(dialogue);
-            addView(mDialogue, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+            addView(mDialogue, new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
             
             mDialogue.setVisibility(expanded ? VISIBLE : GONE);
         }

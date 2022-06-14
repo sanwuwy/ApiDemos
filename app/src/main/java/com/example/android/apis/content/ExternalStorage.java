@@ -136,7 +136,7 @@ public class ExternalStorage extends Activity {
         mExternalStoragePrivateFile.mDelete.setEnabled(writeable && has);
     }
 
-// BEGIN_INCLUDE(monitor_storage)
+
     BroadcastReceiver mExternalStorageReceiver;
     boolean mExternalStorageAvailable = false;
     boolean mExternalStorageWriteable = false;
@@ -173,9 +173,9 @@ public class ExternalStorage extends Activity {
     void stopWatchingExternalStorage() {
         unregisterReceiver(mExternalStorageReceiver);
     }
- // END_INCLUDE(monitor_storage)
 
- // BEGIN_INCLUDE(public_picture)
+
+
     void createExternalStoragePublicPicture() {
         // Create a path where we will place our picture in the user's
         // public pictures directory.  Note that you should be careful about
@@ -240,9 +240,9 @@ public class ExternalStorage extends Activity {
         File file = new File(path, "DemoPicture.jpg");
         return file.exists();
     }
-// END_INCLUDE(public_picture)
 
-// BEGIN_INCLUDE(private_picture)
+
+
     void createExternalStoragePrivatePicture() {
         // Create a path where we will place our picture in our own private
         // pictures directory.  Note that we don't really need to place a
@@ -307,9 +307,9 @@ public class ExternalStorage extends Activity {
         }
         return false;
     }
-// END_INCLUDE(private_picture)
 
-// BEGIN_INCLUDE(private_file)
+
+
      void createExternalStoragePrivateFile() {
          // Create a path where we will place our private file on external
          // storage.
@@ -339,16 +339,21 @@ public class ExternalStorage extends Activity {
          // Get path for the file on external storage.  If external
          // storage is not currently mounted this will fail.
          File file = new File(getExternalFilesDir(null), "DemoFile.jpg");
-         file.delete();
+         if (file != null) {
+             file.delete();
+         }
      }
 
      boolean hasExternalStoragePrivateFile() {
          // Get path for the file on external storage.  If external
          // storage is not currently mounted this will fail.
          File file = new File(getExternalFilesDir(null), "DemoFile.jpg");
-         return file.exists();
+         if (file != null) {
+             return file.exists();
+         }
+         return false;
      }
- // END_INCLUDE(private_file)
+
 
     Item createStorageControls(CharSequence label, File path,
             View.OnClickListener createClick,

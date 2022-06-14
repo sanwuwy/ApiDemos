@@ -31,7 +31,7 @@ import android.widget.Toast;
 import com.example.android.apis.R;
 
 /**
- * This activity demonstrates how to implement an {@link ActionProvider}
+ * This activity demonstrates how to implement an {@link android.view.ActionProvider}
  * for adding functionality to the Action Bar. In particular this demo creates an
  * ActionProvider for launching the system settings and adds a menu item with that
  * provider.

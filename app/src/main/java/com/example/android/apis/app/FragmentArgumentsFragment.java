@@ -49,5 +49,5 @@ public class FragmentArgumentsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_arguments_fragment, container, false);
         return v;
     }
-//END_INCLUDE(create)
+
 }

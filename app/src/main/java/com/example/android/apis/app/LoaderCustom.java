@@ -17,7 +17,6 @@
 package com.example.android.apis.app;
 
 import com.example.android.apis.R;
-import com.example.android.apis.app.LoaderCursor.CursorLoaderListFragment.MySearchView;
 
 import java.io.File;
 import java.text.Collator;
@@ -56,7 +55,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
 
 /**
@@ -77,7 +75,7 @@ public class LoaderCustom extends Activity {
         }
     }
 
-//BEGIN_INCLUDE(loader)
+
     /**
      * This class holds the per-item data in our Loader.
      */
@@ -266,7 +264,7 @@ public class LoaderCustom extends Activity {
                     onReleaseResources(apps);
                 }
             }
-            List<AppEntry> oldApps = mApps;
+            List<AppEntry> oldApps = apps;
             mApps = apps;
 
             if (isStarted()) {
@@ -360,9 +358,9 @@ public class LoaderCustom extends Activity {
             // like a Cursor, we would close it here.
         }
     }
-//END_INCLUDE(loader)
 
-//BEGIN_INCLUDE(fragment)
+
+
     public static class AppListAdapter extends ArrayAdapter<AppEntry> {
         private final LayoutInflater mInflater;
 
@@ -399,14 +397,10 @@ public class LoaderCustom extends Activity {
     }
 
     public static class AppListFragment extends ListFragment
-            implements OnQueryTextListener, OnCloseListener,
-            LoaderManager.LoaderCallbacks<List<AppEntry>> {
+            implements OnQueryTextListener, LoaderManager.LoaderCallbacks<List<AppEntry>> {
 
         // This is the Adapter being used to display the list's data.
         AppListAdapter mAdapter;
-
-        // The SearchView for doing filtering.
-        SearchView mSearchView;
 
         // If non-null, this is the current filter the user has provided.
         String mCurFilter;
@@ -433,31 +427,15 @@ public class LoaderCustom extends Activity {
             getLoaderManager().initLoader(0, null, this);
         }
 
-        public static class MySearchView extends SearchView {
-            public MySearchView(Context context) {
-                super(context);
-            }
-
-            // The normal SearchView doesn't clear its search text when
-            // collapsed, so we will do this for it.
-            @Override
-            public void onActionViewCollapsed() {
-                setQuery("", false);
-                super.onActionViewCollapsed();
-            }
-        }
-
         @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             // Place an action bar item for searching.
             MenuItem item = menu.add("Search");
             item.setIcon(android.R.drawable.ic_menu_search);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM
                     | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-            mSearchView = new MySearchView(getActivity());
-            mSearchView.setOnQueryTextListener(this);
-            mSearchView.setOnCloseListener(this);
-            mSearchView.setIconifiedByDefault(true);
-            item.setActionView(mSearchView);
+            SearchView sv = new SearchView(getActivity());
+            sv.setOnQueryTextListener(this);
+            item.setActionView(sv);
         }
 
         @Override public boolean onQueryTextChange(String newText) {
@@ -470,14 +448,6 @@ public class LoaderCustom extends Activity {
 
         @Override public boolean onQueryTextSubmit(String query) {
             // Don't care about this.
-            return true;
-        }
-
-        @Override
-        public boolean onClose() {
-            if (!TextUtils.isEmpty(mSearchView.getQuery())) {
-                mSearchView.setQuery(null, true);
-            }
             return true;
         }
 
@@ -509,5 +479,5 @@ public class LoaderCustom extends Activity {
             mAdapter.setData(null);
         }
     }
-//END_INCLUDE(fragment)
+
 }

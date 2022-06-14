@@ -45,7 +45,7 @@ public class IncomingMessageInterstitial extends Activity {
             });
     }
 
-//BEGIN_INCLUDE(app_launch)
+
     /**
      * Perform a switch to the app.  A new activity stack is started, replacing
      * whatever is currently running, and this activity is finished.
@@ -60,5 +60,5 @@ public class IncomingMessageInterstitial extends Activity {
         startActivities(stack);
         finish();
     }
-//END_INCLUDE(app_launch)
+
 }

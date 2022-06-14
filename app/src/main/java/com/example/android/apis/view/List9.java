@@ -77,11 +77,11 @@ public class List9 extends ListActivity implements ListView.OnScrollListener {
 
             public void run() {
                 mReady = true;
-                LayoutParams lp = new LayoutParams(
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
                         LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-                        LayoutParams.TYPE_APPLICATION,
-                        LayoutParams.FLAG_NOT_TOUCHABLE
-                                | LayoutParams.FLAG_NOT_FOCUSABLE,
+                        WindowManager.LayoutParams.TYPE_APPLICATION,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 mWindowManager.addView(mDialogText, lp);
             }});

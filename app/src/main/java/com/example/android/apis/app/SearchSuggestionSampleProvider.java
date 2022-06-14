@@ -22,7 +22,7 @@ import android.content.SearchRecentSuggestionsProvider;
  * To create a search suggestions provider using the built-in recent queries mode, 
  * simply extend SearchRecentSuggestionsProvider as shown here, and configure with
  * a unique authority and the mode you with to use.  For more information, see
- * {@link SearchRecentSuggestionsProvider}.
+ * {@link android.content.SearchRecentSuggestionsProvider}.
  */
 public class SearchSuggestionSampleProvider extends SearchRecentSuggestionsProvider {
     

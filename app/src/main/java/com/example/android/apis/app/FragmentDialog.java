@@ -63,7 +63,7 @@ public class FragmentDialog extends Activity {
         outState.putInt("level", mStackLevel);
     }
 
-//BEGIN_INCLUDE(add_dialog)
+
     void showDialog() {
         mStackLevel++;
 
@@ -81,7 +81,7 @@ public class FragmentDialog extends Activity {
         DialogFragment newFragment = MyDialogFragment.newInstance(mStackLevel);
         newFragment.show(ft, "dialog");
     }
-//END_INCLUDE(add_dialog)
+
 
     static String getNameForNum(int num) {
         switch ((num-1)%6) {
@@ -98,7 +98,7 @@ public class FragmentDialog extends Activity {
         return "STYLE_NORMAL";
     }
 
-//BEGIN_INCLUDE(dialog)
+
     public static class MyDialogFragment extends DialogFragment {
         int mNum;
 
@@ -164,5 +164,5 @@ public class FragmentDialog extends Activity {
             return v;
         }
     }
-//END_INCLUDE(dialog)
+
 }

@@ -14,7 +14,6 @@
      limitations under the License.
 -->
 
-<!-- BEGIN_INCLUDE(ValueAnimatorResources) -->
 <animator xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="1000"
     android:valueFrom="1"
@@ -22,4 +21,3 @@
     android:valueType="floatType"
     android:repeatCount="1"
     android:repeatMode="reverse"/>
-<!-- END_INCLUDE(ValueAnimatorResources) -->

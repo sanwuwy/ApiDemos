@@ -37,7 +37,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-//BEGIN_INCLUDE(activity)
+
 /**
  * <h3>Presentation Activity</h3>
  *
@@ -75,7 +75,7 @@ public class PresentationWithMediaRouterActivity extends Activity {
 
     /**
      * Initialization of the Activity after it is first created.  Must at least
-     * call {@link Activity#setContentView setContentView()} to
+     * call {@link android.app.Activity#setContentView setContentView()} to
      * describe what is to be displayed in the screen.
      */
     @Override
@@ -157,7 +157,7 @@ public class PresentationWithMediaRouterActivity extends Activity {
 
     private void updatePresentation() {
         // Get the current route and its presentation display.
-        RouteInfo route = mMediaRouter.getSelectedRoute(
+        MediaRouter.RouteInfo route = mMediaRouter.getSelectedRoute(
                 MediaRouter.ROUTE_TYPE_LIVE_VIDEO);
         Display presentationDisplay = route != null ? route.getPresentationDisplay() : null;
 
@@ -287,4 +287,4 @@ public class PresentationWithMediaRouterActivity extends Activity {
         }
     }
 }
-//END_INCLUDE(activity)
+

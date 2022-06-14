@@ -128,7 +128,7 @@ public class DraggableDot extends View {
         Log.i(TAG, "DraggableDot @ " + this + " : radius=" + mRadius + " legend='" + mLegend
                 + "' anr=" + mAnrType);
 
-        setOnLongClickListener(new OnLongClickListener() {
+        setOnLongClickListener(new View.OnLongClickListener() {
             public boolean onLongClick(View v) {
                 ClipData data = ClipData.newPlainText("dot", "Dot : " + v.toString());
                 v.startDrag(data, new ANRShadowBuilder(v, mAnrType == ANR_SHADOW),

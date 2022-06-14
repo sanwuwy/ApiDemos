@@ -38,12 +38,12 @@ public class FragmentDialogOrActivity extends Activity {
 
         if (savedInstanceState == null) {
             // First-time init; create fragment to embed in activity.
-//BEGIN_INCLUDE(embed)
+
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             DialogFragment newFragment = MyDialogFragment.newInstance();
             ft.add(R.id.embedded, newFragment);
             ft.commit();
-//END_INCLUDE(embed)
+
         }
 
         // Watch for button clicks.
@@ -55,15 +55,15 @@ public class FragmentDialogOrActivity extends Activity {
         });
     }
 
-//BEGIN_INCLUDE(show_dialog)
+
     void showDialog() {
         // Create the fragment and show it as a dialog.
         DialogFragment newFragment = MyDialogFragment.newInstance();
         newFragment.show(getFragmentManager(), "dialog");
     }
-//END_INCLUDE(show_dialog)
 
-//BEGIN_INCLUDE(dialog)
+
+
     public static class MyDialogFragment extends DialogFragment {
         static MyDialogFragment newInstance() {
             return new MyDialogFragment();
@@ -78,5 +78,5 @@ public class FragmentDialogOrActivity extends Activity {
             return v;
         }
     }
-//END_INCLUDE(dialog)
+
 }

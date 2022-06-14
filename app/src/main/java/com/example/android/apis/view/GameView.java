@@ -209,7 +209,7 @@ public class GameView extends View {
 
         // Check that the event came from a joystick since a generic motion event
         // could be almost anything.
-        if (event.isFromSource(InputDevice.SOURCE_CLASS_JOYSTICK)
+        if ((event.getSource() & InputDevice.SOURCE_CLASS_JOYSTICK) != 0
                 && event.getAction() == MotionEvent.ACTION_MOVE) {
             // Cache the most recently obtained device information.
             // The device information may change over time but it can be
@@ -483,7 +483,7 @@ public class GameView extends View {
     }
 
     static float pythag(float x, float y) {
-        return (float) Math.hypot(x, y);
+        return (float) Math.sqrt(x * x + y * y);
     }
 
     static int blend(float alpha, int from, int to) {

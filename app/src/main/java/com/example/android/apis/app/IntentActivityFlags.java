@@ -35,7 +35,7 @@ public class IntentActivityFlags extends Activity {
      * This creates an array of Intent objects representing the back stack
      * for a user going into the Views/Lists API demos.
      */
-//BEGIN_INCLUDE(intent_array)
+
     private Intent[] buildIntentsToViewsLists() {
         // We are going to rebuild our task with a new back stack.  This will
         // be done by launching an array of Intents, representing the new
@@ -61,7 +61,7 @@ public class IntentActivityFlags extends Activity {
         intents[2] = intent;
         return intents;
     }
-//END_INCLUDE(intent_array)
+
 
     private OnClickListener mFlagActivityClearTaskListener = new OnClickListener() {
         public void onClick(View v) {
@@ -72,10 +72,10 @@ public class IntentActivityFlags extends Activity {
     private OnClickListener mFlagActivityClearTaskPIListener = new OnClickListener() {
         public void onClick(View v) {
             Context context = IntentActivityFlags.this;
-//BEGIN_INCLUDE(pending_intent)
+
             PendingIntent pi = PendingIntent.getActivities(context, 0,
                     buildIntentsToViewsLists(), PendingIntent.FLAG_UPDATE_CURRENT);
-//END_INCLUDE(pending_intent)
+
             try {
                 pi.send();
             } catch (CanceledException e) {

@@ -34,7 +34,7 @@ import android.widget.TextView;
  * and layout attributes.
  */
 public class FragmentArguments extends Activity {
-//BEGIN_INCLUDE(create)
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_arguments);
@@ -47,9 +47,9 @@ public class FragmentArguments extends Activity {
             ft.commit();
         }
     }
-//END_INCLUDE(create)
 
-//BEGIN_INCLUDE(fragment)
+
+
     public static class MyFragment extends Fragment {
         CharSequence mLabel;
 
@@ -104,5 +104,5 @@ public class FragmentArguments extends Activity {
             return v;
         }
     }
-//END_INCLUDE(fragment)
+
 }

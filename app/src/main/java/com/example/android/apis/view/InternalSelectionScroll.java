@@ -24,16 +24,16 @@ import android.widget.ScrollView;
 
 /**
  * Demonstrates how a well behaved view with internal selection
- * ({@link InternalSelectionView}) can cause its parent {@link ScrollView}
+ * ({@link InternalSelectionView}) can cause its parent {@link android.widget.ScrollView}
  * to scroll to keep the internally interesting rectangle on the screen.
  *
  * {@link InternalSelectionView} achieves this by calling {@link android.view.View#requestRectangleOnScreen}
  * each time its internal selection changes.
  *
- * {@link ScrollView}, in turn, implements {@link android.view.View#requestRectangleOnScreen}
+ * {@link android.widget.ScrollView}, in turn, implements {@link android.view.View#requestRectangleOnScreen}
  * thereby acheiving the result.  Note that {@link android.widget.ListView} also implements the
  * method, so views that call {@link android.view.View#requestRectangleOnScreen} that are embedded
- * within either {@link ScrollView}s or {@link android.widget.ListView}s can
+ * within either {@link android.widget.ScrollView}s or {@link android.widget.ListView}s can
  * expect to keep their internal interesting rectangle visible.
  */
 public class InternalSelectionScroll extends Activity {

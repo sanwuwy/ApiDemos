@@ -32,7 +32,7 @@ public class SoftInputModes extends Activity {
     
     /**
      * Initialization of the Activity after it is first created.  Here we use
-     * {@link Activity#setContentView setContentView()} to set up
+     * {@link android.app.Activity#setContentView setContentView()} to set up
      * the Activity's content, and retrieve the EditText widget whose state we
      * will persistent.
      */

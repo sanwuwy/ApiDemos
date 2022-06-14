@@ -65,7 +65,7 @@ public class BitmapDecode extends GraphicsActivity {
             super(context);
             setFocusable(true);
 
-            InputStream is;
+            java.io.InputStream is;
             is = context.getResources().openRawResource(R.drawable.beach);
 
             BitmapFactory.Options opts = new BitmapFactory.Options();

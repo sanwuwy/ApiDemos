@@ -33,11 +33,11 @@ import android.widget.TextView;
  * <p>In general, any activity that has been paused may be stopped by the system
  * at any time if it needs more resources for the currently running activity.
  * To handle this, before being paused the
- * {@link Activity#onSaveInstanceState onSaveInstanceState()} method is called before
+ * {@link android.app.Activity#onSaveInstanceState onSaveInstanceState()} method is called before
  * an activity is paused, allowing it to supply its current state.  If that
  * activity then needs to be stopped, upon restarting it will receive its
  * last saved state in
- * {@link Activity#onCreate}.</p>
+ * {@link android.app.Activity#onCreate}.</p>
  * <p>In this example we are currently saving and restoring the state of the
  * top text editor, but not of the bottom text editor.  You can see the difference
  * by editing the two text fields, then going to a couple different
@@ -63,7 +63,7 @@ public class SaveRestoreState extends Activity
 {
     /**
      * Initialization of the Activity after it is first created.  Here we use
-     * {@link Activity#setContentView setContentView()} to set up
+     * {@link android.app.Activity#setContentView setContentView()} to set up
      * the Activity's content, and retrieve the EditText widget whose state we
      * will save/restore.
      */

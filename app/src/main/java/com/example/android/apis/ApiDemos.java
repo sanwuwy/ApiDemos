@@ -143,8 +143,7 @@ public class ApiDemos extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Map<String, Object> map = (Map<String, Object>)l.getItemAtPosition(position);
 
-        Intent intent = new Intent((Intent) map.get("intent"));
-        intent.addCategory(Intent.CATEGORY_SAMPLE_CODE);
+        Intent intent = (Intent) map.get("intent");
         startActivity(intent);
     }
 }

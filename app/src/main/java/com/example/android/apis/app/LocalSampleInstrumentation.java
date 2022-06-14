@@ -24,7 +24,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * This is an example implementation of the {@link Instrumentation}
+ * This is an example implementation of the {@link android.app.Instrumentation}
  * class demonstrating instrumentation against one of this application's sample
  * activities.
  */

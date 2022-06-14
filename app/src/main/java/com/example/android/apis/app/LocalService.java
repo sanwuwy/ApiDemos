@@ -23,7 +23,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -42,7 +41,7 @@ import com.example.android.apis.R;
  * interact with the user, rather than doing something more disruptive such as
  * calling startActivity().
  */
-//BEGIN_INCLUDE(service)
+
 public class LocalService extends Service {
     private NotificationManager mNM;
 
@@ -72,7 +71,9 @@ public class LocalService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
-        return START_NOT_STICKY;
+        // We want this service to continue running until it is explicitly
+        // stopped, so return sticky.
+        return START_STICKY;
     }
 
     @Override
@@ -100,22 +101,20 @@ public class LocalService extends Service {
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = getText(R.string.local_service_started);
 
+        // Set the icon, scrolling text and timestamp
+        Notification notification = new Notification(R.drawable.stat_sample, text,
+                System.currentTimeMillis());
+
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, LocalServiceActivities.Controller.class), 0);
 
         // Set the info for the views that show in the notification panel.
-        Notification notification = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.stat_sample)  // the status icon
-                .setTicker(text)  // the status text
-                .setWhen(System.currentTimeMillis())  // the time stamp
-                .setContentTitle(getText(R.string.local_service_label))  // the label of the entry
-                .setContentText(text)  // the contents of the entry
-                .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
-                .build();
+//        notification.setLatestEventInfo(this, getText(R.string.local_service_label),
+//                       text, contentIntent);
 
         // Send the notification.
         mNM.notify(NOTIFICATION, notification);
     }
 }
-//END_INCLUDE(service)
+

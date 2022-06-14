@@ -56,7 +56,7 @@ public class ContentBrowserActivity extends Activity
      * flags to transition in and out of modes where the user is focused on that
      * content.
      */
-//BEGIN_INCLUDE(content)
+
     public static class Content extends ScrollView
             implements View.OnSystemUiVisibilityChangeListener, View.OnClickListener {
         TextView mText;
@@ -156,7 +156,7 @@ public class ContentBrowserActivity extends Activity
             mSeekView.setVisibility(visible ? VISIBLE : INVISIBLE);
         }
     }
-//END_INCLUDE(content)
+
 
     Content mContent;
 

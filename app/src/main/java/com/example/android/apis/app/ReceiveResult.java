@@ -39,9 +39,9 @@ data back to the originating activity when done.</p>
 the picking activity and receives its results; SendResult allows the user
 to pick something and sends the selection back to its caller.  Implementing
 this functionality involves the
-{@link Activity#setResult setResult()} method for sending a
+{@link android.app.Activity#setResult setResult()} method for sending a
 result and
-{@link Activity#onActivityResult onActivityResult()} to
+{@link android.app.Activity#onActivityResult onActivityResult()} to
 receive it.</p>
 
 <h4>Demo</h4>
@@ -71,7 +71,7 @@ App/Activity/Receive Result
 public class ReceiveResult extends Activity {
     /**
      * Initialization of the Activity after it is first created.  Must at least
-     * call {@link Activity#setContentView setContentView()} to
+     * call {@link android.app.Activity#setContentView setContentView()} to
      * describe what is to be displayed in the screen.
      */
     @Override

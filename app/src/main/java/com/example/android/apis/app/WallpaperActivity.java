@@ -32,7 +32,7 @@ import android.os.Bundle;
 public class WallpaperActivity extends Activity {
     /**
      * Initialization of the Activity after it is first created.  Must at least
-     * call {@link Activity#setContentView setContentView()} to
+     * call {@link android.app.Activity#setContentView setContentView()} to
      * describe what is to be displayed in the screen.
      */
     @Override

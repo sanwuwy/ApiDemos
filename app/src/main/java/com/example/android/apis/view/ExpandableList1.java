@@ -118,9 +118,7 @@ public class ExpandableList1 extends ExpandableListActivity {
             // Center the text vertically
             textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
             // Set the text starting position
-            textView.setPaddingRelative(36, 0, 0, 0);
-            // Set the text alignment
-            textView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+            textView.setPadding(36, 0, 0, 0);
             return textView;
         }
         

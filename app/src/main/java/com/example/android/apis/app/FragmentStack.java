@@ -67,7 +67,7 @@ public class FragmentStack extends Activity {
         outState.putInt("level", mStackLevel);
     }
 
-//BEGIN_INCLUDE(add_stack)
+
     void addFragmentToStack() {
         mStackLevel++;
 
@@ -82,9 +82,9 @@ public class FragmentStack extends Activity {
         ft.addToBackStack(null);
         ft.commit();
     }
-//END_INCLUDE(add_stack)
 
-//BEGIN_INCLUDE(fragment)
+
+
     public static class CountingFragment extends Fragment {
         int mNum;
 
@@ -126,5 +126,5 @@ public class FragmentStack extends Activity {
             return v;
         }
     }
-//END_INCLUDE(fragment)
+
 }

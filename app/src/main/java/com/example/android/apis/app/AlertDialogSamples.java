@@ -24,7 +24,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,7 +35,7 @@ import android.provider.ContactsContract;
 import com.example.android.apis.R;
 
 /**
- * Example of how to use an {@link AlertDialog}.
+ * Example of how to use an {@link android.app.AlertDialog}.
  * <h3>AlertDialogSamples</h3>
 
 <p>This demonstrates the different ways the AlertDialog can be used.</p>
@@ -57,7 +56,6 @@ App/Dialog/Alert Dialog
  * </table> 
  */
 public class AlertDialogSamples extends Activity {
-    private static final String TAG = "AlertDialogSamples";
     private static final int DIALOG_YES_NO_MESSAGE = 1;
     private static final int DIALOG_YES_NO_LONG_MESSAGE = 2;
     private static final int DIALOG_LIST = 3;
@@ -69,13 +67,9 @@ public class AlertDialogSamples extends Activity {
     private static final int DIALOG_YES_NO_ULTRA_LONG_MESSAGE = 9;
     private static final int DIALOG_YES_NO_OLD_SCHOOL_MESSAGE = 10;
     private static final int DIALOG_YES_NO_HOLO_LIGHT_MESSAGE = 11;
-    private static final int DIALOG_YES_NO_DEFAULT_LIGHT_MESSAGE = 12;
-    private static final int DIALOG_YES_NO_DEFAULT_DARK_MESSAGE = 13;
-    private static final int DIALOG_PROGRESS_SPINNER = 14;
 
     private static final int MAX_PROGRESS = 100;
-
-    private ProgressDialog mProgressSpinnerDialog;
+    
     private ProgressDialog mProgressDialog;
     private int mProgress;
     private Handler mProgressHandler;
@@ -85,6 +79,7 @@ public class AlertDialogSamples extends Activity {
         switch (id) {
         case DIALOG_YES_NO_MESSAGE:
             return new AlertDialog.Builder(AlertDialogSamples.this)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setTitle(R.string.alert_dialog_two_buttons_title)
                 .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -125,32 +120,9 @@ public class AlertDialogSamples extends Activity {
                     }
                 })
                 .create();
-        case DIALOG_YES_NO_DEFAULT_LIGHT_MESSAGE:
-            return new AlertDialog.Builder(AlertDialogSamples.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT)
-                .setTitle(R.string.alert_dialog_two_buttons_title)
-                .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
-                })
-                .setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
-                })
-                .create();
-        case DIALOG_YES_NO_DEFAULT_DARK_MESSAGE:
-            return new AlertDialog.Builder(AlertDialogSamples.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
-                .setTitle(R.string.alert_dialog_two_buttons_title)
-                .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
-                })
-                .setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
-                })
-                .create();
         case DIALOG_YES_NO_LONG_MESSAGE:
             return new AlertDialog.Builder(AlertDialogSamples.this)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setTitle(R.string.alert_dialog_two_buttons_msg)
                 .setMessage(R.string.alert_dialog_two_buttons2_msg)
                 .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
@@ -174,6 +146,7 @@ public class AlertDialogSamples extends Activity {
                 .create();
         case DIALOG_YES_NO_ULTRA_LONG_MESSAGE:
             return new AlertDialog.Builder(AlertDialogSamples.this)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setTitle(R.string.alert_dialog_two_buttons_msg)
                 .setMessage(R.string.alert_dialog_two_buttons2ultra_msg)
                 .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
@@ -211,6 +184,7 @@ public class AlertDialogSamples extends Activity {
                 .create();
         case DIALOG_PROGRESS:
             mProgressDialog = new ProgressDialog(AlertDialogSamples.this);
+            mProgressDialog.setIconAttribute(android.R.attr.alertDialogIcon);
             mProgressDialog.setTitle(R.string.select_dialog);
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgressDialog.setMax(MAX_PROGRESS);
@@ -229,13 +203,9 @@ public class AlertDialogSamples extends Activity {
                 }
             });
             return mProgressDialog;
-        case DIALOG_PROGRESS_SPINNER:
-            mProgressSpinnerDialog = new ProgressDialog(AlertDialogSamples.this);
-            mProgressSpinnerDialog.setTitle(R.string.select_dialog);
-            mProgressSpinnerDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            return mProgressSpinnerDialog;
         case DIALOG_SINGLE_CHOICE:
             return new AlertDialog.Builder(AlertDialogSamples.this)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setTitle(R.string.alert_dialog_single_choice)
                 .setSingleChoiceItems(R.array.select_dialog_items2, 0, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -258,6 +228,7 @@ public class AlertDialogSamples extends Activity {
                .create();
         case DIALOG_MULTIPLE_CHOICE:
             return new AlertDialog.Builder(AlertDialogSamples.this)
+                .setIcon(R.drawable.ic_popup_reminder)
                 .setTitle(R.string.alert_dialog_multi_choice)
                 .setMultiChoiceItems(R.array.select_dialog_items3,
                         new boolean[]{false, true, false, true, false, false, false},
@@ -283,33 +254,35 @@ public class AlertDialogSamples extends Activity {
                     }
                 })
                .create();
-        case DIALOG_MULTIPLE_CHOICE_CURSOR:
-            String[] projection = new String[] {
-                    ContactsContract.Contacts._ID,
-                    ContactsContract.Contacts.DISPLAY_NAME,
-                    ContactsContract.Contacts.SEND_TO_VOICEMAIL
-            };
-            Cursor cursor = managedQuery(ContactsContract.Contacts.CONTENT_URI,
-                    projection, null, null, null);
-            return new AlertDialog.Builder(AlertDialogSamples.this)
-                .setTitle(R.string.alert_dialog_multi_choice_cursor)
-                .setMultiChoiceItems(cursor,
-                        ContactsContract.Contacts.SEND_TO_VOICEMAIL,
+            case DIALOG_MULTIPLE_CHOICE_CURSOR:
+                String[] projection = new String[] {
+                        ContactsContract.Contacts._ID,
                         ContactsContract.Contacts.DISPLAY_NAME,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton,
-                                    boolean isChecked) {
-                                Toast.makeText(AlertDialogSamples.this,
-                                        "Readonly Demo Only - Data will not be updated",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        })
-               .create();
+                        ContactsContract.Contacts.SEND_TO_VOICEMAIL
+                };
+                Cursor cursor = managedQuery(ContactsContract.Contacts.CONTENT_URI,
+                        projection, null, null, null);
+                return new AlertDialog.Builder(AlertDialogSamples.this)
+                    .setIcon(R.drawable.ic_popup_reminder)
+                    .setTitle(R.string.alert_dialog_multi_choice_cursor)
+                    .setMultiChoiceItems(cursor,
+                            ContactsContract.Contacts.SEND_TO_VOICEMAIL,
+                            ContactsContract.Contacts.DISPLAY_NAME,
+                            new DialogInterface.OnMultiChoiceClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton,
+                                        boolean isChecked) {
+                                    Toast.makeText(AlertDialogSamples.this,
+                                            "Readonly Demo Only - Data will not be updated",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                   .create();
         case DIALOG_TEXT_ENTRY:
             // This example shows how to add a custom layout to an AlertDialog
             LayoutInflater factory = LayoutInflater.from(this);
             final View textEntryView = factory.inflate(R.layout.alert_dialog_text_entry, null);
             return new AlertDialog.Builder(AlertDialogSamples.this)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setTitle(R.string.alert_dialog_text_entry)
                 .setView(textEntryView)
                 .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
@@ -331,7 +304,7 @@ public class AlertDialogSamples extends Activity {
 
     /**
      * Initialization of the Activity after it is first created.  Must at least
-     * call {@link Activity#setContentView(int)} to
+     * call {@link android.app.Activity#setContentView(int)} to
      * describe what is to be displayed in the screen.
      */
     @Override
@@ -384,14 +357,6 @@ public class AlertDialogSamples extends Activity {
                 mProgressHandler.sendEmptyMessage(0);
             }
         });
-
-        /* Display a custom progress bar */
-        Button progressSpinnerButton = (Button) findViewById(R.id.progress_spinner_button);
-        progressSpinnerButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DIALOG_PROGRESS_SPINNER);
-            }
-        });
         
         /* Display a radio button group */
         Button radioButton = (Button) findViewById(R.id.radio_button);
@@ -440,22 +405,6 @@ public class AlertDialogSamples extends Activity {
                 showDialog(DIALOG_YES_NO_HOLO_LIGHT_MESSAGE);
             }
         });
-
-        /* Two points, in the light default theme */
-        Button twoButtonsDefaultLightTitle = (Button) findViewById(R.id.two_buttons_default_light);
-        twoButtonsDefaultLightTitle.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DIALOG_YES_NO_DEFAULT_LIGHT_MESSAGE);
-            }
-        });
-
-        /* Two points, in the dark default theme */
-        Button twoButtonsDefaultDarkTitle = (Button) findViewById(R.id.two_buttons_default_dark);
-        twoButtonsDefaultDarkTitle.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DIALOG_YES_NO_DEFAULT_DARK_MESSAGE);
-            }
-        });
         
         mProgressHandler = new Handler() {
             @Override
@@ -470,10 +419,5 @@ public class AlertDialogSamples extends Activity {
                 }
             }
         };
-    }
-
-    @Override
-    public void onEnterAnimationComplete() {
-        Log.i(TAG, "onEnterAnimationComplete");
     }
 }

@@ -26,7 +26,7 @@ import android.os.Bundle;
 
 /**
  * Demonstrates creating a Screen that uses custom views. This example uses
- * {@link LabelView}, which is defined in
+ * {@link com.example.android.apis.view.LabelView}, which is defined in
  * SDK/src/com/example/android/apis/view/LabelView.java.
  * 
  */

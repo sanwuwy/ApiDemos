@@ -39,7 +39,7 @@ public class FragmentTabsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTabManager = new TabManager(getActivity(), getChildFragmentManager(),
-                R.id.realtabcontent);
+                R.id.reltabcontent);
     }
 
     @Override
@@ -248,4 +248,4 @@ public class FragmentTabsFragment extends Fragment {
         }
     }
 }
-//END_INCLUDE(complete)
+

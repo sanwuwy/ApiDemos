@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -35,7 +34,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.SearchView.OnCloseListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SearchView.OnQueryTextListener;
 
@@ -58,16 +56,12 @@ public class LoaderCursor extends Activity {
         }
     }
 
-//BEGIN_INCLUDE(fragment_cursor)
+
     public static class CursorLoaderListFragment extends ListFragment
-            implements OnQueryTextListener, OnCloseListener,
-            LoaderManager.LoaderCallbacks<Cursor> {
+            implements OnQueryTextListener, LoaderManager.LoaderCallbacks<Cursor> {
 
         // This is the Adapter being used to display the list's data.
         SimpleCursorAdapter mAdapter;
-
-        // The SearchView for doing filtering.
-        SearchView mSearchView;
 
         // If non-null, this is the current filter the user has provided.
         String mCurFilter;
@@ -97,31 +91,15 @@ public class LoaderCursor extends Activity {
             getLoaderManager().initLoader(0, null, this);
         }
 
-        public static class MySearchView extends SearchView {
-            public MySearchView(Context context) {
-                super(context);
-            }
-
-            // The normal SearchView doesn't clear its search text when
-            // collapsed, so we will do this for it.
-            @Override
-            public void onActionViewCollapsed() {
-                setQuery("", false);
-                super.onActionViewCollapsed();
-            }
-        }
-
         @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             // Place an action bar item for searching.
             MenuItem item = menu.add("Search");
             item.setIcon(android.R.drawable.ic_menu_search);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM
                     | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-            mSearchView = new MySearchView(getActivity());
-            mSearchView.setOnQueryTextListener(this);
-            mSearchView.setOnCloseListener(this);
-            mSearchView.setIconifiedByDefault(true);
-            item.setActionView(mSearchView);
+            SearchView sv = new SearchView(getActivity());
+            sv.setOnQueryTextListener(this);
+            item.setActionView(sv);
         }
 
         public boolean onQueryTextChange(String newText) {
@@ -144,14 +122,6 @@ public class LoaderCursor extends Activity {
 
         @Override public boolean onQueryTextSubmit(String query) {
             // Don't care about this.
-            return true;
-        }
-
-        @Override
-        public boolean onClose() {
-            if (!TextUtils.isEmpty(mSearchView.getQuery())) {
-                mSearchView.setQuery(null, true);
-            }
             return true;
         }
 
@@ -213,5 +183,5 @@ public class LoaderCursor extends Activity {
             mAdapter.swapCursor(null);
         }
     }
-//END_INCLUDE(fragment_cursor)
+
 }

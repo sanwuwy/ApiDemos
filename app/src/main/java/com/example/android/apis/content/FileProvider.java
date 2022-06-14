@@ -26,11 +26,9 @@ import android.content.ContentValues;
 import android.content.ContentProvider.PipeDataWriter;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
-import android.provider.OpenableColumns;
 import android.util.Log;
 
 /**
@@ -47,43 +45,8 @@ public class FileProvider extends ContentProvider
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
             String sortOrder) {
-
-        // content providers that support open and openAssetFile should support queries for all
-        // android.provider.OpenableColumns.
-
-        int displayNameIndex = -1;
-        int sizeIndex = -1;
-
-        // If projection is null, return all columns.
-        if (projection == null) {
-            projection = new String[] {
-                    OpenableColumns.DISPLAY_NAME,
-                    OpenableColumns.SIZE};
-        }
-
-        for (int i = 0; i < projection.length; i++) {
-            if (OpenableColumns.DISPLAY_NAME.equals(projection[i])) {
-                displayNameIndex = i;
-            }
-            if (OpenableColumns.SIZE.equals(projection[i])) {
-                sizeIndex = i;
-            }
-        }
-
-        MatrixCursor cursor = new MatrixCursor(projection);
-        Object[] result = new Object[projection.length];
-
-        for (int i = 0; i < result.length; i++) {
-            if (i == displayNameIndex) {
-                result[i] = uri.getPath();
-            }
-            if (i == sizeIndex) {
-                result[i] = null; // Size is unknown, so null, if it was known, it would go here.
-            }
-        }
-
-        cursor.addRow(result);
-        return cursor;
+        // Don't support queries.
+        return null;
     }
 
     @Override
@@ -111,19 +74,14 @@ public class FileProvider extends ContentProvider
     }
 
     @Override
-    public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
+    public AssetFileDescriptor openAssetFile(Uri uri, String mode) throws FileNotFoundException {
         // Try to open an asset with the given name.
         try {
-            String path = uri.getPath();
-            int off = path.indexOf('/', 1);
-            if (off < 0 || off >= (path.length()-1)) {
-                throw new FileNotFoundException("Unable to open " + uri);
-            }
-            int cookie = Integer.parseInt(path.substring(1, off));
-            String assetPath = path.substring(off+1);
-            AssetFileDescriptor asset = getContext().getAssets().openNonAssetFd(cookie, assetPath);
-            return new ParcelFileDescriptor(openPipeHelper(uri, null, null,
-                    asset.createInputStream(), this));
+            InputStream is = getContext().getAssets().open(uri.getPath());
+            // Start a new thread that pipes the stream data back to the caller.
+            return new AssetFileDescriptor(
+                    openPipeHelper(uri, null, null, is, this), 0,
+                    AssetFileDescriptor.UNKNOWN_LENGTH);
         } catch (IOException e) {
             FileNotFoundException fnf = new FileNotFoundException("Unable to open " + uri);
             throw fnf;

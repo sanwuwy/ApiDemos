@@ -142,7 +142,7 @@ public class GameControllerInput extends Activity
     public boolean dispatchGenericMotionEvent(MotionEvent event) {
         // Check that the event came from a joystick since a generic motion event
         // could be almost anything.
-        if (event.isFromSource(InputDevice.SOURCE_CLASS_JOYSTICK)
+        if (isJoystick(event.getSource())
                 && event.getAction() == MotionEvent.ACTION_MOVE) {
             // Update device state for visualization and logging.
             InputDeviceState state = getInputDeviceState(event.getDeviceId());
@@ -195,6 +195,10 @@ public class GameControllerInput extends Activity
         }
     }
 
+    private static boolean isJoystick(int source) {
+        return (source & InputDevice.SOURCE_CLASS_JOYSTICK) != 0;
+    }
+
     /**
      * Tracks the state of joystick axes and game controller buttons for a particular
      * input device for diagnostic purposes.
@@ -211,7 +215,7 @@ public class GameControllerInput extends Activity
             int numAxes = 0;
             final List<MotionRange> ranges = device.getMotionRanges();
             for (MotionRange range : ranges) {
-                if (range.isFromSource(InputDevice.SOURCE_CLASS_JOYSTICK)) {
+                if ((range.getSource() & InputDevice.SOURCE_CLASS_JOYSTICK) != 0) {
                     numAxes += 1;
                 }
             }
@@ -220,7 +224,7 @@ public class GameControllerInput extends Activity
             mAxisValues = new float[numAxes];
             int i = 0;
             for (MotionRange range : ranges) {
-                if (range.isFromSource(InputDevice.SOURCE_CLASS_JOYSTICK)) {
+                if ((range.getSource() & InputDevice.SOURCE_CLASS_JOYSTICK) != 0) {
                     mAxes[i++] = range.getAxis();
                 }
             }

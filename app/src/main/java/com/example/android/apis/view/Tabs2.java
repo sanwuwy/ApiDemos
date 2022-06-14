@@ -25,7 +25,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 /**
- * Example of using a tab content factory for the content via {@link TabHost.TabSpec#setContent(TabHost.TabContentFactory)}
+ * Example of using a tab content factory for the content via {@link TabHost.TabSpec#setContent(android.widget.TabHost.TabContentFactory)}
  *
  * It also demonstrates using an icon on one of the tabs via {@link TabHost.TabSpec#setIndicator(CharSequence, android.graphics.drawable.Drawable)}
  *

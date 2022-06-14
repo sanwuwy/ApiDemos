@@ -29,7 +29,7 @@ import com.example.android.apis.R;
 
 
 /**
- * Example of how to use a custom title {@link Window#FEATURE_CUSTOM_TITLE}.
+ * Example of how to use a custom title {@link android.view.Window#FEATURE_CUSTOM_TITLE}.
  * <h3>CustomTitle</h3>
 
 <p>This demonstrates how a custom title can be used.</p>
@@ -53,7 +53,7 @@ public class CustomTitle extends Activity {
     
     /**
      * Initialization of the Activity after it is first created.  Must at least
-     * call {@link Activity#setContentView(int)} to
+     * call {@link android.app.Activity#setContentView(int)} to
      * describe what is to be displayed in the screen.
      */
     @Override
